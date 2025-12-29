@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win ₹100 Prize - Share with 5 Friends</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(to right, #FF512F, #F09819);
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .prize-container {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .win-text {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            margin-bottom: 10px;
+            animation: zoomInOut 2s infinite alternate;
+        }
+        
+        @keyframes zoomInOut {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            }
+            100% {
+                transform: scale(1.2);
+                text-shadow: 0 0 40px rgba(255, 215, 0, 1), 0 0 60px rgba(255, 215, 0, 0.8);
+            }
+        }
+        
+        .prize-amount {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #28a745;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+            margin-top: -20px;
+        }
+        
+        .share-section {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+        
+        .share-btn {
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            margin-bottom: 20px;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.6);
+        }
+        
+        .share-btn i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .share-instructions {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #2575fc;
+        }
+        
+        .share-instructions h3 {
+            color: #2575fc;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .share-instructions p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .friends-progress {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .progress-title h3 {
+            color: #2575fc;
+            font-size: 1.5rem;
+        }
+        
+        .friends-count {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+        
+        .progress-bar-container {
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            width: 0%;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .friends-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .friend-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+        
+        .friend-item.active {
+            opacity: 1;
+            background-color: #e8f5e9;
+            border: 2px solid #4CAF50;
+        }
+        
+        .friend-item i {
+            font-size: 2rem;
+            color: #757575;
+            margin-bottom: 10px;
+        }
+        
+        .friend-item.active i {
+            color: #4CAF50;
+        }
+        
+        .friend-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .processing-section {
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .processing-icon {
+            font-size: 4rem;
+            color: #FF9800;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .processing-text {
+            font-size: 1.8rem;
+            color: #FF9800;
+            margin-bottom: 20px;
+        }
+        
+        .upi-form-section {
+            padding: 30px;
+            display: none;
+        }
+        
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #2575fc;
+            margin-bottom: 30px;
+        }
+        
+        .upi-form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #FF512F, #F09819);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 81, 47, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255, 81, 47, 0.5);
+        }
+        
+        .success-section {
+            padding: 50px 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+        
+        .success-title {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .success-message {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .timer {
+            font-size: 1.8rem;
+            color: #FF9800;
+            font-weight: 700;
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .win-text {
+                font-size: 4rem;
+            }
+            
+            .prize-amount {
+                font-size: 3.5rem;
+            }
+            
+            .share-btn {
+                padding: 18px 30px;
+                font-size: 1.5rem;
+            }
+            
+            .friends-list {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .friend-item {
+                padding: 10px 5px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .win-text {
+                font-size: 3rem;
+            }
+            
+            .prize-amount {
+                font-size: 2.8rem;
+            }
+            
+            .share-btn {
+                width: 100%;
+                padding: 16px 20px;
+                font-size: 1.3rem;
+            }
+            
+            .friends-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Win ₹100 Cash Prize!</h1>
+            <p>Share with 5 friends to claim your ₹100 reward</p>
+        </div>
+        
+        <div class="prize-container">
+            <div class="win-text">WIN</div>
+            <div class="prize-amount">₹100</div>
+        </div>
+        
+        <div class="share-section" id="shareSection">
+            <button class="share-btn" id="shareButton">
+                <i class="fas fa-share-alt"></i> SHARE NOW
+            </button>
+            
+            <div class="share-instructions">
+                <h3>How to Get ₹100:</h3>
+                <p>1. Click SHARE NOW button above</p>
+                <p>2. Share the link with 5 friends</p>
+                <p>3. Ask your friends to click your shared link</p>
+                <p>4. After 5 friends click, you can claim ₹100</p>
+            </div>
+            
+            <div class="friends-progress">
+                <div class="progress-title">
+                    <h3>Friends Shared</h3>
+                    <div class="friends-count"><span id="friendsCount">0</span>/5</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar">0%</div>
+                </div>
+                
+                <div class="friends-list">
+                    <div class="friend-item" id="friend1">
+                        <i class="fas fa-user"></i>
+                        <div class="friend-name">Friend 1</div>
+                    </div>
+                    <div class="friend-item" id="friend2">
+                        <i class="fas fa-user"></i>
+                        <div class="friend-name">Friend 2</div>
+                    </div>
+                    <div class="friend-item" id="friend3">
+                        <i class="fas fa-user"></i>
+                        <div class="friend-name">Friend 3</div>
+                    </div>
+                    <div class="friend-item" id="friend4">
+                        <i class="fas fa-user"></i>
+                        <div class="friend-name">Friend 4</div>
+                    </div>
+                    <div class="friend-item" id="friend5">
+                        <i class="fas fa-user"></i>
+                        <div class="friend-name">Friend 5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="processing-section" id="processingSection">
+            <div class="processing-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="processing-text">Processing...</div>
+            <p>Waiting for your friends to click the shared link</p>
+            <p id="processingCount">0 out of 5 friends have clicked</p>
+        </div>
+        
+        <div class="upi-form-section" id="upiFormSection">
+            <h2 class="form-title">Claim Your ₹100 Prize!</h2>
+            <div class="upi-form">
+                <div class="form-group">
+                    <label for="upiId"><i class="fas fa-money-bill-wave"></i> Enter Your UPI ID</label>
+                    <input type="text" id="upiId" placeholder="e.g. yourname@upi, 1234567890@ybl" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                </div>
+                <button class="submit-btn" id="submitUpiBtn">
+                    <i class="fas fa-gift"></i> CLAIM ₹100 NOW
+                </button>
+            </div>
+        </div>
+        
+        <div class="success-section" id="successSection">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="success-title">Success! ₹100 Claimed</h2>
+            <div class="success-message">
+                <p>Your ₹100 cash prize has been successfully claimed!</p>
+                <p>Money will be transferred to your UPI within <span class="timer">24 hours</span></p>
+                <p>You will receive a notification when the transaction is completed.</p>
+            </div>
+            <div class="timer">
+                <i class="fas fa-clock"></i> 24 Hours Countdown Started
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is a promotional offer. Prize distribution subject to verification.</p>
+            <p>Contact: support@win100prize.com | Terms & Conditions Apply</p>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const shareButton = document.getElementById('shareButton');
+        const shareSection = document.getElementById('shareSection');
+        const processingSection = document.getElementById('processingSection');
+        const upiFormSection = document.getElementById('upiFormSection');
+        const successSection = document.getElementById('successSection');
+        
+        const friendsCount = document.getElementById('friendsCount');
+        const progressBar = document.getElementById('progressBar');
+        const processingCount = document.getElementById('processingCount');
+        
+        const friendItems = [
+            document.getElementById('friend1'),
+            document.getElementById('friend2'),
+            document.getElementById('friend3'),
+            document.getElementById('friend4'),
+            document.getElementById('friend5')
+        ];
+        
+        const upiIdInput = document.getElementById('upiId');
+        const fullNameInput = document.getElementById('fullName');
+        const phoneInput = document.getElementById('phone');
+        const submitUpiBtn = document.getElementById('submitUpiBtn');
+        
+        // State variables
+        let sharedCount = 0;
+        let clickedCount = 0;
+        
+        // Share button click handler
+        shareButton.addEventListener('click', function() {
+            // Simulate sharing
+            sharedCount++;
+            friendsCount.textContent = sharedCount;
+            
+            // Update progress bar
+            const progressPercent = Math.min((sharedCount / 5) * 100, 100);
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${Math.round(progressPercent)}%`;
+            
+            // Activate friend item
+            if (sharedCount <= 5) {
+                friendItems[sharedCount - 1].classList.add('active');
+            }
+            
+            // If shared with 5 friends, move to processing
+            if (sharedCount >= 5) {
+                // Show processing section after a delay
+                setTimeout(() => {
+                    shareSection.style.display = 'none';
+                    processingSection.style.display = 'block';
+                    
+                    // Simulate friends clicking the link
+                    simulateFriendsClicking();
+                }, 1000);
+            }
+            
+            // Update button text
+            if (sharedCount < 5) {
+                shareButton.innerHTML = `<i class="fas fa-share-alt"></i> SHARE MORE (${sharedCount}/5)`;
+            } else {
+                shareButton.innerHTML = `<i class="fas fa-check"></i> SHARED WITH 5 FRIENDS!`;
+                shareButton.style.background = "linear-gradient(to right, #4CAF50, #8BC34A)";
+                shareButton.disabled = true;
+            }
+        });
+        
+        // Simulate friends clicking the shared link
+        function simulateFriendsClicking() {
+            let clicked = 0;
+            
+            const clickInterval = setInterval(() => {
+                clicked++;
+                clickedCount = clicked;
+                processingCount.textContent = `${clicked} out of 5 friends have clicked`;
+                
+                // When 5 friends have clicked, show UPI form
+                if (clicked >= 5) {
+                    clearInterval(clickInterval);
+                    
+                    // Show UPI form after a delay
+                    setTimeout(() => {
+                        processingSection.style.display = 'none';
+                        upiFormSection.style.display = 'block';
+                    }, 1500);
+                }
+            }, 1500); // Simulate a friend clicking every 1.5 seconds
+        }
+        
+        // UPI form submission
+        submitUpiBtn.addEventListener('click', function() {
+            const upiId = upiIdInput.value.trim();
+            const fullName = fullNameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            
+            // Simple validation
+            if (!upiId || !fullName || !phone) {
+                alert("Please fill in all fields to claim your prize!");
+                return;
+            }
+            
+            // Validate UPI ID format (simple check)
+            if (!upiId.includes('@')) {
+                alert("Please enter a valid UPI ID (e.g., yourname@upi)");
+                return;
+            }
+            
+            // Validate phone number (simple check)
+            if (phone.length < 10) {
+                alert("Please enter a valid phone number");
+                return;
+            }
+            
+            // Show success message
+            upiFormSection.style.display = 'none';
+            successSection.style.display = 'block';
+            
+            // Start a 24-hour countdown (simulated)
+            startCountdown();
+        });
+        
+        // Simulate countdown
+        function startCountdown() {
+            const timerElement = document.querySelector('.timer');
+            let hours = 24;
+            let minutes = 0;
+            let seconds = 0;
+            
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    
+                    if (minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        
+                        if (hours < 0) {
+                            clearInterval(countdownInterval);
+                            timerElement.innerHTML = `<i class="fas fa-check-circle"></i> Money Transferred!`;
+                            timerElement.style.background = "#e8f5e9";
+                            timerElement.style.color = "#4CAF50";
+                            return;
+                        }
+                    }
+                }
+                
+                // Update timer display
+                timerElement.innerHTML = `
+                    <i class="fas fa-clock"></i> 
+                    ${hours.toString().padStart(2, '0')}h 
+                    ${minutes.toString().padStart(2, '0')}m 
+                    ${seconds.toString().padStart(2, '0')}s
+                `;
+            }, 1000);
+        }
+        
+        // Initialize with first share simulation after a delay
+        setTimeout(() => {
+            if (sharedCount === 0) {
+                shareButton.click();
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
